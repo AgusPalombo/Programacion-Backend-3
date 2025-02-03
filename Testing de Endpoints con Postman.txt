@@ -1,0 +1,47 @@
+Testing de Endpoints con Postman
+
+
+1.GET /api/mocks/mockingusers (50 usuarios mock)
+
+Método: GET
+
+URL: http://localhost:8080/api/mocks/mockingusers
+
+Headers: Content-Type: application/json
+
+Respuesta Esperada: Status 200 OK.
+
+JSON con 50 usuarios (ej: email, role, pets: []).
+
+
+
+2.GET /api/mocks/mockingpets (100 mascotas mock)
+Método: GET
+
+URL: http://localhost:8080/api/mocks/mockingpets
+
+Headers: Content-Type: application/json
+
+Respuesta Esperada: Status 200 OK.
+
+JSON con 100 mascotas (ej: name, type, adopted: false).
+
+
+3.POST /api/mocks/generateData (Insertar datos en MongoDB)
+Método: POST
+
+URL: http://localhost:8080/api/mocks/generateData
+
+Headers: Content-Type: application/json
+
+Body (raw JSON):
+
+{
+  "users": 5,
+  "pets": 5
+}
+
+Respuesta Esperada: Status 200 OK.
+
+JSON con confirmación: { "status": "success", "data": { "users": [...], "pets": [...] } }.
+
