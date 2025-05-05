@@ -32,7 +32,7 @@ router.post("/generateData", async (req, res, next) => {
     if (isNaN(userCount) || isNaN(petCount) || userCount <= 0 || petCount <= 0) {
       return res.status(400).json({
         status: "error",
-        message: "Parámetros inválidos. Se esperan números positivos."
+        message: "Parámetros inválidos. Se esperan números positivos.",
       });
     }
 
@@ -45,10 +45,9 @@ router.post("/generateData", async (req, res, next) => {
       status: "success",
       data: {
         users: insertedUsers,
-        pets: insertedPets
-      }
+        pets: insertedPets,
+      },
     });
-
   } catch (error) {
     logger.error("Error insertando datos mock:", error);
     next(error);

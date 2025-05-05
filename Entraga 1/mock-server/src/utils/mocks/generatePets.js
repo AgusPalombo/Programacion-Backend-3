@@ -1,14 +1,22 @@
-const petNames = ["Max", "Luna", "Rocky", "Bella", "Charlie"];
-const petTypes = ["dog", "cat"];
+import { faker } from "@faker-js/faker";
 
 export const generateMockPets = (count) => {
-  return Array.from({ length: count }, () => {
-    return {
-      name: petNames[Math.floor(Math.random() * petNames.length)],
-      type: petTypes[Math.floor(Math.random() * petTypes.length)],
-      adopted: false,
-      owner: null,
-      createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000)
+  const pets = new Set();
+
+  while (pets.size < count) {
+    const name = faker.animal.dog();
+    const pet = {
+      name,
+      type: faker.helpers.arrayElement(["dog", "cat"]),
+      adopted: false, 
+      owner: null, 
+      createdAt: faker.date.past(1), 
     };
-  });
+
+    // Asegurarse de que el nombre sea único
+    pets.add(JSON.stringify(pet));
+  }
+
+  // Convertir de Set a Array
+  return Array.from(pets).map((pet) => JSON.parse(pet));
 };

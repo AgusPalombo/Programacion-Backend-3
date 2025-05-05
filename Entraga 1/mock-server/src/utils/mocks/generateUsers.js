@@ -1,17 +1,22 @@
 import bcrypt from "bcrypt";
-
-const firstNames = ["Ana", "Luis", "Marta", "Pedro", "Sofía"];
-const lastNames = ["Gómez", "Pérez", "López", "Martínez", "Rodríguez"];
+import { faker } from "@faker-js/faker";
 
 export const generateMockUsers = (count) => {
-  return Array.from({ length: count }, () => {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    return {
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@mock.com`,
-      password: bcrypt.hashSync("coder123", 10), // Contraseña encriptada
-      role: Math.random() < 0.2 ? "admin" : "user", // 20% de chance de ser admin
-      pets: []
+  const users = new Set();
+
+  while (users.size < count) {
+    const email = faker.internet.email().toLowerCase();
+    const user = {
+      email,
+      password: bcrypt.hashSync("coder123", 10), 
+      role: faker.helpers.arrayElement(["user", "admin"]),
+      pets: [], 
     };
-  });
+
+    // Asegurarse de que el email sea único
+    users.add(JSON.stringify(user));
+  }
+
+  // Convertir de Set a Array
+  return Array.from(users).map((user) => JSON.parse(user));
 };
