@@ -4,10 +4,11 @@ export const generateMockPets = (count) => {
   const pets = new Set();
 
   while (pets.size < count) {
-    const name = faker.animal.dog();
+    const type = faker.helpers.arrayElement(["dog", "cat"]);
+    const name = type === "cat" ? faker.animal.cat() : faker.animal.dog();
     const pet = {
       name,
-      type: faker.helpers.arrayElement(["dog", "cat"]),
+      type,
       adopted: false, 
       owner: null, 
       createdAt: faker.date.past(1), 
