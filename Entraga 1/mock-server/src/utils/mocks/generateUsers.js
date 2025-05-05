@@ -1,4 +1,3 @@
-import { User } from "../../models/user.model.js";
 import bcrypt from "bcrypt";
 
 const firstNames = ["Ana", "Luis", "Marta", "Pedro", "Sofía"];
@@ -8,11 +7,11 @@ export const generateMockUsers = (count) => {
   return Array.from({ length: count }, () => {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    return new User({
+    return {
       email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@mock.com`,
-      password: bcrypt.hashSync("coder123", 10),
-      role: Math.random() < 0.2 ? "admin" : "user",
+      password: bcrypt.hashSync("coder123", 10), // Contraseña encriptada
+      role: Math.random() < 0.2 ? "admin" : "user", // 20% de chance de ser admin
       pets: []
-    });
+    };
   });
 };
